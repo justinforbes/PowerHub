@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+
+* Update Get-Sysinfo to display the new value of the new key for the release ID
+
 ## [2.0.10] - 2024-12-20
 
 ### Added

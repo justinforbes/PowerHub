@@ -905,7 +905,7 @@ Return some basic information about the underlying system
         isadmin = $IsAdmin;
         groups = $Groups;
         admins = $admins;
-        releaseid = (Get-Item "HKLM:SOFTWARE\Microsoft\Windows NT\CurrentVersion").GetValue('ReleaseID');
+        releaseid = (Get-Item "HKLM:SOFTWARE\Microsoft\Windows NT\CurrentVersion").GetValue('DisplayVersion');
         IPs = $IPs
     }
 }
