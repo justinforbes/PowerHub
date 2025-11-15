@@ -18,11 +18,11 @@
 # -- Project information -----------------------------------------------------
 
 project = 'PowerHub'
-copyright = '2018-2023, Adrian Vollmer'
+copyright = '2018-2026, Adrian Vollmer'
 author = 'Adrian Vollmer'
 
 # The full version, including alpha/beta/rc tags
-release = "2.0.10"
+release = "2.0.11"
 
 
 # -- General configuration ---------------------------------------------------
