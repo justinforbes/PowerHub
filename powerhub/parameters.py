@@ -192,6 +192,10 @@ params = [
              "Only makes sense with key exchange 'embedded'."
     ),
     Parameter(
+        "pivot", '', 'Pivot', 'text', get_arg='pivot',
+        help="Enter IP of pivot endpoint via which traffic is forwarded to the acutal PowerHub host (e.g. 10.10.10.35:1337). If port is omitted, the original port will be used."
+    ),
+    Parameter(
         'minimal', False, 'Minimal Mode', 'checkbox', get_arg='m',
         help=(
             "In minimal mode, comment-based help of Cmdlets and some obviously "

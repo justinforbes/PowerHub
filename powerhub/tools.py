@@ -223,3 +223,36 @@ class Memoize:
         if args not in self.memo:
             self.memo[args] = self.f(*args)
         return self.memo[args]
+
+
+def modify_callbacks(callbacks, pivot_endpoint, args):
+    """Modify callbacks to the given pivot endpoint"""
+
+    def old_port(transport, args):
+        if args.URI_PORT:
+            return args.URI_PORT
+
+        return args.SSL_PORT if transport == "https" else args.LPORT
+
+    def old_endpoint(transport, args):
+        if ":" in pivot_endpoint:
+            # pivot_endpoint is of the form <ip>:<port>
+            # we want to replace both old host and port
+            old = f"{args.URI_HOST}:{old_port(transport, args)}"
+        else:
+            # pivot endpoint is of the form <ip>
+            # we only want to replace the host part and keep the port
+            old = args.URI_HOST
+
+        return old
+
+
+    if not pivot_endpoint:
+        return callbacks
+
+    modifiedCallbacks = callbacks.copy()
+    for transport in callbacks:
+        old = old_endpoint(transport, args)
+        modifiedCallbacks[transport] = callbacks[transport].replace(old, pivot_endpoint, 1)
+
+    return modifiedCallbacks

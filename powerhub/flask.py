@@ -17,7 +17,7 @@ import powerhub.modules as phmod
 from powerhub.upload import save_file, get_filelist
 from powerhub.directories import directories
 from powerhub.payloads import create_payload
-from powerhub.tools import decrypt_aes
+from powerhub.tools import decrypt_aes, modify_callbacks
 from powerhub.repos import repositories, install_repo
 from powerhub.hiddenapp import hidden_app
 from powerhub.dhkex import DH_ENDPOINT, dh_kex
@@ -152,7 +152,9 @@ def dlcradle():
         'cmd_enc',
         'bash',
     ]:
-        cmd = build_cradle(params, app.key, app.callback_urls)
+
+        callbacks = modify_callbacks(app.callback_urls, param_collection["pivot"], app.args)
+        cmd = build_cradle(params, app.key, callbacks)
         href = None
     else:
         # Return a download button for payload

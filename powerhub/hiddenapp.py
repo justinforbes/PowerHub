@@ -6,7 +6,7 @@ import string
 
 from flask import render_template, request, Response, Flask
 
-from powerhub.tools import encrypt_rc4, encrypt_aes, compress
+from powerhub.tools import encrypt_rc4, encrypt_aes, compress, modify_callbacks
 import powerhub.modules as phmod
 from powerhub.stager import get_stage, insert_decoys
 from powerhub.directories import directories
@@ -50,11 +50,12 @@ def get_stage3():
     else:
         webdav_user, webdav_pass = '', ''
 
+    callbacks = modify_callbacks(hidden_app.callback_urls, param_collection['pivot'], hidden_app.args)
     powerhub_context = dict(
         modules=phmod.modules,
         preloaded_modules=preloaded_modules,
         preloaded_modules_content=preloaded_modules_content,
-        callback_url=hidden_app.callback_urls[transport],
+        callback_url=callbacks[transport],
         transport=transport,
         webdav_url=hidden_app.webdav_url,
         webdav_user=webdav_user,
@@ -135,11 +136,12 @@ def stager():
     else:
         separator = ''
 
+    callbacks = modify_callbacks(hidden_app.callback_urls, param_collection['pivot'], hidden_app.args)
     stager_context = dict(
         VERSION=__version__,
         key=key,
         amsibypass=amsi_bypass,
-        callback=hidden_app.callback_urls[transport],
+        callback=callbacks[transport],
         kex=kex,
         DH_G=DH_G,
         DH_MODULUS=DH_MODULUS,
